@@ -13,9 +13,14 @@
     <Folder Include="CQRS\Estados\Queries\" />
     <Folder Include="CQRS\Pedidos\" />
     <Folder Include="CQRS\Productos\Commands\" />
-    <Folder Include="CQRS\Productos\Queries\" />
     <Folder Include="CQRS\Tipos\Commands\" />
     <Folder Include="CQRS\Tipos\Queries\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="10.3.3" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
   </ItemGroup>
 
 </Project>

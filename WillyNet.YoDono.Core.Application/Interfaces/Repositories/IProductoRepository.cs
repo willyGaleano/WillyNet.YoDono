@@ -9,5 +9,6 @@ namespace WillyNet.YoDono.Core.Application.Interfaces.Repositories
 {
     public interface IProductoRepository : IGenericRepository<Producto>
     {
+        Task<IEnumerable<Producto>> GetAllProductsHome(string idUser, int pageNumber, int pageSize);
     }
 }

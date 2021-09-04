@@ -24,6 +24,7 @@ namespace WillyNet.YoDono.Infraestructure.Persistence
             identityBuilder.AddSignInManager<SignInManager<AppUser>>();
             #endregion
 
+            services.AddAuthentication();
 
             #region Repositories
             services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));

@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WillyNet.YoDono.Core.Domain\WillyNet.YoDono.Core.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="CQRS\Estados\Commands\" />
+    <Folder Include="CQRS\Estados\Queries\" />
+    <Folder Include="CQRS\Pedidos\" />
+    <Folder Include="CQRS\Productos\Commands\" />
+    <Folder Include="CQRS\Productos\Queries\" />
+    <Folder Include="CQRS\Tipos\Commands\" />
+    <Folder Include="CQRS\Tipos\Queries\" />
+  </ItemGroup>
+
+</Project>

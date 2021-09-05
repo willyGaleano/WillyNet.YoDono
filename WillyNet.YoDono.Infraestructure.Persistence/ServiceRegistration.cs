@@ -20,6 +20,7 @@ namespace WillyNet.YoDono.Infraestructure.Persistence
             #region Identity
             var builder = services.AddIdentityCore<AppUser>();
             var identityBuilder = new IdentityBuilder(builder.UserType, builder.Services);
+            identityBuilder.AddRoles<IdentityRole>();
             identityBuilder.AddEntityFrameworkStores<YoDonoDbContext>();
             identityBuilder.AddSignInManager<SignInManager<AppUser>>();
             #endregion

@@ -17,6 +17,15 @@ namespace WillyNet.YoDono.Infraestructure.Persistence.Repositories
         {
             _estados = dbContext.Set<Estado>();
         }
+
+        public async Task<Guid> GetIdEstado(string Nomb)
+        {
+            return await _estados
+                        .Where(x => x.EstadoNomb.ToUpper() == Nomb.ToUpper())
+                        .Select(x => x.EstadoId)
+                        .FirstOrDefaultAsync();
+        }
+
         public async Task<bool> IsUniqueAsync(string Nomb)
         {
             var result = await _estados.AllAsync(p => p.EstadoNomb != Nomb);

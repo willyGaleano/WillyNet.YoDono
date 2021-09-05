@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using WillyNet.YoDono.Core.Application;
 using WillyNet.YoDono.Infraestructure.Persistence;
 using WillyNet.YoDono.Infraestructure.Shared;
+using WillyNet.YoDono.Presentation.WebApi.Middleware;
 
 namespace WillyNet.YoDono.Presentation.WebApi
 {
@@ -42,15 +43,17 @@ namespace WillyNet.YoDono.Presentation.WebApi
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseMiddleware<ErrorHandlingMiddleware>();
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                //app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WillyNet.YoDono.Presentation.WebApi v1"));
             }
 
             app.UseRouting();
-
+            app.UseCors("CorsPolicy");
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

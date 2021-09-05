@@ -18,9 +18,9 @@ namespace WillyNet.YoDono.Infraestructure.Persistence.Repositories
             _productosContext = dbContext.Set<Producto>();
         }
 
-        public async Task<IEnumerable<Producto>> GetAllProductsHome(string idUser, int pageNumber, int pageSize)
+        public async Task<IEnumerable<Producto>> GetAllProductsHome(string idUser, string estadoNomb, int pageNumber, int pageSize)
         {
-            var productos = await _productosContext.Where(X => X.UserId != idUser)
+            var productos = await _productosContext.Where(x => x.UserId != idUser && x.Estado.EstadoNomb == estadoNomb)
                                         .Include(x => x.Tipo)
                                         .Include(x => x.Estado)
                                         .Include(x => x.User)
@@ -28,6 +28,16 @@ namespace WillyNet.YoDono.Infraestructure.Persistence.Repositories
                                         .Take(pageSize)
                                         .ToListAsync();
             return productos;
+        }
+
+        public async Task<bool> CambiarEstadoProducto(Guid productoId, Guid estadoNuevoId)
+        {
+            //Se modificara el estado del producto 
+            var producto = await _productosContext.Where(x => x.ProducId == productoId).FirstOrDefaultAsync();
+            producto.EstadoId = estadoNuevoId;
+            var result = await UpdateAsync(producto);
+            
+            return result;
         }
     }
 }

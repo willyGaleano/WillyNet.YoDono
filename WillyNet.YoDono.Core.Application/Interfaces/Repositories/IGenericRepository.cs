@@ -14,5 +14,6 @@ namespace WillyNet.YoDono.Core.Application.Interfaces.Repositories
         Task<T> AddAsync(T entity);
         Task<bool> UpdateAsync(T entity);
         Task<bool> DeleteAsync(T entity);
+        Task<int> CountTotal();
     }
 }

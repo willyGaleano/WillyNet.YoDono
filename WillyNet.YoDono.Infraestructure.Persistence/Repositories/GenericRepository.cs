@@ -23,6 +23,11 @@ namespace WillyNet.YoDono.Infraestructure.Persistence.Repositories
             return entity;
         }
 
+        public async Task<int> CountTotal()
+        {
+            return await _dbContext.Set<T>().CountAsync();
+        }
+
         public async Task<bool> DeleteAsync(T entity)
         {
             _dbContext.Set<T>().Remove(entity);

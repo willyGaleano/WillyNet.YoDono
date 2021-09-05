@@ -19,10 +19,13 @@ namespace WillyNet.YoDono.Presentation.WebApi.Controllers.v1
                             {
                                 UserId = parameters.UserId,
                                 PageNumber = parameters.PageNumber,
-                                PageSize = parameters.PageSize
+                                PageSize = parameters.PageSize,
+                                EstadoNomb = parameters.EstadoNomb
                             }
                         )
                 );
         }
+
+        
     }
 }

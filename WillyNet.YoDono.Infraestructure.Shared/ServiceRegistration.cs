@@ -13,6 +13,21 @@ namespace WillyNet.YoDono.Infraestructure.Shared
 
             services.AddTransient<IDateTimeService, DateTimeService>();
             services.AddScoped<IAuthenticatedUserService, AuthenticatedUserService>();
+            services.AddTransient<IAccountService, AccountService>();
+
+            services.AddCors(opt =>
+            {
+                opt.AddPolicy("CorsPolicy",
+                        policy =>
+                        {
+                            policy
+                            .WithOrigins("http://localhost:3000")
+                            .AllowAnyMethod()
+                            .AllowAnyHeader()
+                            .AllowCredentials();
+                        }
+                    );
+            });
         }
     }
 }

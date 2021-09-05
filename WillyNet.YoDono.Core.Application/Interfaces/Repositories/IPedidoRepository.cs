@@ -9,5 +9,8 @@ namespace WillyNet.YoDono.Core.Application.Interfaces.Repositories
 {
     public interface IPedidoRepository : IGenericRepository<Pedido>
     {
+        Task<IEnumerable<Pedido>> GetAllPedidos(string idUser, string estadoNomb, int pageNumber, int pageSize);
+        Task<IEnumerable<Pedido>> GetAllSolicitudes(string idUser, string estadoNomb, int pageNumber, int pageSize);
+        Task<Pedido> CrearPedido(string userSolicitanteId, Guid productoId);
     }
 }

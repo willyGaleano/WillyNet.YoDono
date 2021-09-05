@@ -5,20 +5,49 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using WillyNet.YoDono.Core.Application.Interfaces;
+using WillyNet.YoDono.Core.Domain.Common;
 using WillyNet.YoDono.Core.Domain.Entities;
 
 namespace WillyNet.YoDono.Infraestructure.Persistence.Contexts
 {
     public class YoDonoDbContext : IdentityDbContext<AppUser>
     {
-        public YoDonoDbContext(DbContextOptions<YoDonoDbContext> options) : base(options)
+        private readonly IDateTimeService _dateTime;
+        private readonly IAuthenticatedUserService _authenticatedUser;
+        public YoDonoDbContext(DbContextOptions<YoDonoDbContext> options, 
+            IDateTimeService dateTime, IAuthenticatedUserService authenticatedUser) : base(options)
         {
+            ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
+            _dateTime = dateTime;
+            _authenticatedUser = authenticatedUser;
         }
 
         public DbSet<Estado> Estados { get; set; }
         public DbSet<Tipo> Tipos { get; set; }
         public DbSet<Producto> Productos { get; set; }
+
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
+        {
+            foreach (var entry in ChangeTracker.Entries<AuditableBaseEntity>())
+            {
+                switch (entry.State)
+                {
+                    case EntityState.Added:
+                        entry.Entity.Created = _dateTime.NowUtc;
+                        entry.Entity.CreatedBy = _authenticatedUser.UserId;
+                        break;
+                    case EntityState.Modified:
+                        entry.Entity.LastModified = _dateTime.NowUtc;
+                        entry.Entity.LastModifiedBy = _authenticatedUser.UserId;
+                        break;
+                }
+            }
+
+            return base.SaveChangesAsync(cancellationToken);
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

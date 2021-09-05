@@ -11,7 +11,6 @@
   <ItemGroup>
     <Folder Include="CQRS\Estados\Commands\" />
     <Folder Include="CQRS\Estados\Queries\" />
-    <Folder Include="CQRS\Pedidos\" />
     <Folder Include="CQRS\Productos\Commands\" />
     <Folder Include="CQRS\Tipos\Commands\" />
     <Folder Include="CQRS\Tipos\Queries\" />

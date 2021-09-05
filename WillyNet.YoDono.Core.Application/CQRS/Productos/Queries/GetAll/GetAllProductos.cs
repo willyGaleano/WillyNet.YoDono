@@ -17,7 +17,8 @@ namespace WillyNet.YoDono.Core.Application.CQRS.Productos.Queries.GetAll
         public class QueryProductos : IRequest<PagedResponse<IEnumerable<ProductoDto>>>
         {
             public string UserId { get; set; }
-            public int PageNumber { get; set; }
+            public string EstadoNomb { get; set; }
+            public int PageNumber { get; set;}
             public int PageSize { get; set; }
         }
 
@@ -35,11 +36,12 @@ namespace WillyNet.YoDono.Core.Application.CQRS.Productos.Queries.GetAll
             {
                 var filterValidated = _mapper.Map<GetAllProductoParameters>(request);
                 var productos = await _productoRepository.GetAllProductsHome
-                                                (filterValidated.UserId, filterValidated.PageNumber, filterValidated.PageSize);
+                                                (filterValidated.UserId, filterValidated.EstadoNomb ,filterValidated.PageNumber, filterValidated.PageSize);
                 var productosDto = _mapper.Map<IEnumerable<ProductoDto>>(productos);
+                var count = await _productoRepository.CountTotal();
 
                 var result = new PagedResponse<IEnumerable<ProductoDto>>
-                                                (productosDto, filterValidated.PageNumber, filterValidated.PageSize);
+                              (productosDto, filterValidated.PageNumber, filterValidated.PageSize, count, "¡Consulta exitosa!");
                 return result;
             }
         }

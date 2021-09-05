@@ -9,6 +9,7 @@ namespace WillyNet.YoDono.Core.Application.Interfaces.Repositories
 {
     public interface IProductoRepository : IGenericRepository<Producto>
     {
-        Task<IEnumerable<Producto>> GetAllProductsHome(string idUser, int pageNumber, int pageSize);
+        Task<IEnumerable<Producto>> GetAllProductsHome(string idUser, string estadoNomb, int pageNumber, int pageSize);
+        Task<bool> CambiarEstadoProducto(Guid productoId, Guid estadoNuevoId);
     }
 }

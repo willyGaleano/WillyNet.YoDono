@@ -10,8 +10,9 @@ namespace WillyNet.YoDono.Core.Application.Wrappers
     {
         public int PageNumber { get; set; }
         public int PageSize { get; set; }
+        public int CountTotal { get; set; }
 
-        public PagedResponse(T data, int pageNumber, int pageSize, string message = "")
+        public PagedResponse(T data, int pageNumber, int pageSize, int countTotal, string message = "")
         {
             this.PageNumber = pageNumber;
             this.PageSize = pageSize;
@@ -19,6 +20,7 @@ namespace WillyNet.YoDono.Core.Application.Wrappers
             this.Message = message;
             this.Succeeded = true;
             this.Errors = null;
+            this.CountTotal = countTotal;
         }
     }
 }

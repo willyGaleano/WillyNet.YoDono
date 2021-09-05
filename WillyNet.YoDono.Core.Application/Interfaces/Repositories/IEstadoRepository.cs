@@ -10,5 +10,6 @@ namespace WillyNet.YoDono.Core.Application.Interfaces.Repositories
     public interface IEstadoRepository : IGenericRepository<Estado>
     {
         Task<bool> IsUniqueAsync(string Nomb);
+        Task<Guid> GetIdEstado(string Nomb);
     }
 }
